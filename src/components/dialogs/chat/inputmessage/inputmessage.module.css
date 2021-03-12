@@ -1,0 +1,11 @@
+.input {
+    display: flex;
+    margin-bottom: 10px;
+}
+.input textarea { 
+    resize: none;
+    width: 90%;
+}
+.input button {
+    align-items: flex-end;
+}

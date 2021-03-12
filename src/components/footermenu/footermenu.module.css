@@ -1,0 +1,15 @@
+.footer {
+  grid-area: f;
+  background-color: burlywood;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.item {
+  margin-top: 0.7%;  
+  color: white;
+  text-decoration: none;
+}
+.item.active {
+  color: rgb(197, 38, 176);
+}

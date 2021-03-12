@@ -1,0 +1,11 @@
+.users {
+    display: flex;
+    flex-direction: column;
+}
+.search input {
+    margin: 10px;
+    width: 95%;
+}
+.more {
+    margin: 10px;
+}

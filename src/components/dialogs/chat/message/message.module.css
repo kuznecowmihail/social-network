@@ -1,0 +1,11 @@
+.message { 
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+.me {
+  
+}
+.companion {
+  align-self: flex-end;
+}

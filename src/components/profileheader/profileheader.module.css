@@ -1,0 +1,6 @@
+.profile {
+  grid-area: p;
+}
+.profile img {
+  height: 35px;
+}
