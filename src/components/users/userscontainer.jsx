@@ -4,8 +4,8 @@ import {useState, useEffect} from 'react';
 import Users from './users';
 import {usersActionCraeters} from '../../redux/users-reducer';
 
-const UsersAPI = (props) => {
-    const [page, setPage] = useState(1);
+const UsersContainer = (props) => {
+    const [page, setPage] = useState(0);
     const [moreVisible, setMoreVisible] = useState(true);
     useEffect(() => {
         if (props.users.length === 0) {
@@ -30,6 +30,7 @@ const UsersAPI = (props) => {
                 let users = data && data.users;
                 setMoreVisible(data && data.remainder > 0);
                 props.setUsers(users);
+                setPage(pageCount + 1);
             });
     };
     return <Users users={props.users}
@@ -37,7 +38,6 @@ const UsersAPI = (props) => {
         moreVisible={moreVisible}
         page={page}
         getUsers={getUsers}
-        setPage={setPage}
         updateSeatchTextArea={props.updateSeatchTextArea}
         changeFollowed={props.changeFollowed} />;
 };
@@ -60,5 +60,4 @@ let mapDispatchToProps = (dispatch) => {
         }
     }
 };
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPI);
-export default UsersContainer
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);

@@ -5,7 +5,7 @@ import Chat from './chat';
 import NullChat from './nullchat/nullchat'
 import {dialogActionCraeters} from './../../../redux/dialogs-reducer';
 
-const ChatAPI = (props) => {
+const ChatContainer = (props) => {
     useEffect(() => {
         if (props.messages.length === 0 && props.activeDialogId) {
             getMessages();
@@ -57,5 +57,4 @@ let mapDispatchToProps = (dispatch) => {
         }
     };
 };
-const ChatContainer = connect(mapStateToProps, mapDispatchToProps)(ChatAPI);
-export default ChatContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(ChatContainer);
