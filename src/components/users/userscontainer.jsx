@@ -1,18 +1,21 @@
 import axios from 'axios';
-import {connect} from 'react-redux';
-import {useState, useEffect} from 'react';
+import { connect } from 'react-redux';
+import { useState, useEffect } from 'react';
 import Users from './users';
-import {usersActionCraeters} from '../../redux/users-reducer';
+import { usersActionCraeters } from '../../redux/users-reducer';
 
 const UsersContainer = (props) => {
+    const [isInit, setInit] = useState(false);
     const [page, setPage] = useState(0);
     const [moreVisible, setMoreVisible] = useState(true);
     useEffect(() => {
-        if (props.users.length === 0) {
+        if (props.users.length === 0 && !isInit) {
+            setInit(true);
             getUsers();
         }
     });
     const getUsers = (pageCount) => {
+        props.setFetching(true);
         pageCount = pageCount || 0;
         const axiosConfig = {
             baseURL: 'http://192.168.1.90:3001/api/1.0',
@@ -21,6 +24,7 @@ const UsersContainer = (props) => {
         let app = axios.create(axiosConfig)
         app.get(`/users/${pageCount}`)
             .then(response => {
+                props.setFetching(false);
                 let status = response && response.status;
                 if (status !== 200) {
                     console.log('request error');
@@ -28,23 +32,26 @@ const UsersContainer = (props) => {
                 }
                 let data = response && response.data;
                 let users = data && data.users;
+                setPage(pageCount + 1);
                 setMoreVisible(data && data.remainder > 0);
                 props.setUsers(users);
-                setPage(pageCount + 1);
             });
     };
-    return <Users users={props.users}
-        newSearchTextAreaValue={props.newSearchTextAreaValue}
-        moreVisible={moreVisible}
-        page={page}
-        getUsers={getUsers}
-        updateSeatchTextArea={props.updateSeatchTextArea}
-        changeFollowed={props.changeFollowed} />;
+    return (
+        <Users users={props.users}
+            newSearchTextAreaValue={props.newSearchTextAreaValue}
+            moreVisible={moreVisible && !props.isFetching}
+            isFetching={props.isFetching}
+            page={page}
+            getUsers={getUsers}
+            updateSeatchTextArea={props.updateSeatchTextArea}
+            changeFollowed={props.changeFollowed} />);
 };
 let mapStateToProps = (state) => {
     return {
         newSearchTextAreaValue: state.usersData.newSearchTextAreaValue,
-        users: state.usersData.users
+        users: state.usersData.users,
+        isFetching: state.usersData.isFetching
     };
 };
 let mapDispatchToProps = (dispatch) => {
@@ -57,6 +64,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         setUsers: (users) => {
             dispatch(usersActionCraeters.setUsersCreater(users));
+        },
+        setFetching: (isFetching) => {
+            dispatch(usersActionCraeters.setFetchingCreater(isFetching));
         }
     }
 };

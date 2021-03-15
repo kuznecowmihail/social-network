@@ -6,6 +6,9 @@
     margin: 10px;
     width: 95%;
 }
+.fetching img {
+    height: 50px;
+}
 .more {
     margin: 10px;
 }

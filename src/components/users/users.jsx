@@ -15,12 +15,19 @@ const Users = (props) => {
             <div className={classes.search}>
                 <input type='text' onChange={updateSeatchTextArea}
                     value={props.newSearchTextAreaValue} />
-            </div>  
+            </div>
             <List changeFollowed={props.changeFollowed}
                 users={props.users.filter(item =>
                     item.name.toLowerCase().includes(props.newSearchTextAreaValue.toLowerCase()))} />
             {
-                props.moreVisible && <div className={classes.more}>
+                props.isFetching &&
+                <div className={classes.fetching}>
+                    <img src='https://recxon.pro/upload/medialibrary/818/8187a44741ec1bc337686b53ce22cc10.gif' />
+                </div>
+            }
+            {
+                props.moreVisible && 
+                <div className={classes.more}>
                     <button onClick={() => {
                         getUsers(props.page);
                     }}>More</button>
