@@ -1,7 +1,10 @@
 .header {
     grid-area: h;
-    background-color: burlywood;
+    background-color: rgb(28, 40, 61);
+    border-width: 0 0 5px 0;
+    border-style: solid;
+    border-bottom-color: rgb(98, 217, 252);
   }
   .header img {
-    width: 170px;
+    width: 50px;
   }

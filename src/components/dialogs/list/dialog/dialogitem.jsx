@@ -13,7 +13,7 @@ const DialogItem = (props) => {
             </div>
             <div className={classes.content}>
                 <div className={classes.name}>
-                    <NavLink activeClassName={classes.active}
+                    <NavLink activeClassName='active-item'
                         to={"/dialogs/" + props.id}
                         onClick={onLinkClick}>
                         {props.name}

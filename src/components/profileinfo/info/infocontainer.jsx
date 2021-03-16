@@ -12,12 +12,7 @@ let mapStateToProps = (state) => {
 
     };
 };
-let mapDispatchToProps = (dispatch) => {
-    return {
-        updateStatusTextArea: (value) => {
-            dispatch(profileActionCraeters.updateStatusActionCreater(value));
-        }
-    };
-};
-const InfoContainer = connect(mapStateToProps, mapDispatchToProps)(Info);
+const InfoContainer = connect(mapStateToProps, {
+    updateStatusTextArea: profileActionCraeters.updateStatusActionCreater
+})(Info);
 export default InfoContainer;

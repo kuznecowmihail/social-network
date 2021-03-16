@@ -9,7 +9,7 @@ const FooterMenu = (props) => {
                     return (
                         <NavLink key={item.id}
                             className={classes.item}
-                            activeClassName={classes.active}
+                            activeClassName='active-item'
                             to={item.to}>
                                 {item.name}
                         </NavLink>

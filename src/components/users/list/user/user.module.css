@@ -1,7 +1,7 @@
 .user {
   border-style: solid;
   border-width: 5px;
-  border-color: burlywood;
+  border-color: rgb(28, 40, 61);
   margin: 10px;
   display: flex;
   flex-direction: row;

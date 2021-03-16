@@ -1,19 +1,10 @@
 const UPPDATE_SEARCH_TEXT_AREA = 'UPPDATE-SEARCH-TEXT-AREA';
 const CHANGE_FOLLOWED = 'CHANGE-FOLLOWED';
 const SET_USERS = 'SET-USERS';
-const SET_FETCHING = 'SET-FETCHING';
 
 let initialState = {
     users: [],
-    newSearchTextAreaValue: '',
-    isFetching: false
-};
-const updateSeatchTextArea = (state, value) => {
-    let stateCopy = {
-        ...state,
-        newSearchTextAreaValue: value
-    };
-    return stateCopy;
+    newSearchTextAreaValue: ''
 };
 const changeFollowed = (state, userId) => {
     let stateCopy = {
@@ -30,7 +21,7 @@ const changeFollowed = (state, userId) => {
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
         case UPPDATE_SEARCH_TEXT_AREA: {
-            state = updateSeatchTextArea(state, action.value);
+            state = {...state,newSearchTextAreaValue: action.value};
             break;
         }
         case CHANGE_FOLLOWED: {
@@ -40,11 +31,6 @@ const usersReducer = (state = initialState, action) => {
         case SET_USERS: {
             state.users.push(...action.users);
             state = {...state, users: [...state.users]};
-            initialState.users = state.users;
-            break;
-        }
-        case SET_FETCHING: {
-            state = {...state, isFetching: action.value};
             break;
         }
     }
@@ -62,10 +48,6 @@ export const usersActionCraeters = {
     setUsersCreater: (users) => ({
         type: SET_USERS,
         users: users
-    }),
-    setFetchingCreater: (value) => ({
-        type: SET_FETCHING,
-        value: value
     })
 }
 export default usersReducer

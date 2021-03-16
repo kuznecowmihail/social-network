@@ -1,14 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import List from './list/list';
+import Preloader from '.././common/preloader/preloader';
 import classes from './users.module.css';
 
 const Users = (props) => {
+    const [isFetching, setFetching] = useState(false);
+    const [moreVisible, setMoreVisible] = useState(true);
     const updateSeatchTextArea = (e) => {
         let value = e.target.value;
         props.updateSeatchTextArea(value);
     };
-    const getUsers = page => {
-        props.getUsers(page);
+    const onMoreClick = () => {
+        setFetching(true);
+        setMoreVisible(false);
+        props.getUsers(props.page, setFetching, setMoreVisible);
     };
     return (
         <div className={classes.users}>
@@ -19,21 +24,15 @@ const Users = (props) => {
             <List changeFollowed={props.changeFollowed}
                 users={props.users.filter(item =>
                     item.name.toLowerCase().includes(props.newSearchTextAreaValue.toLowerCase()))} />
+            <Preloader isFetching={isFetching} />
             {
-                props.isFetching &&
-                <div className={classes.fetching}>
-                    <img src='https://recxon.pro/upload/medialibrary/818/8187a44741ec1bc337686b53ce22cc10.gif' />
-                </div>
-            }
-            {
-                props.moreVisible && 
+                moreVisible && 
                 <div className={classes.more}>
-                    <button onClick={() => {
-                        getUsers(props.page);
-                    }}>More</button>
+                    <button onClick={onMoreClick}>
+                        More
+                    </button>
                 </div>
             }
-
         </div>
     );
 };

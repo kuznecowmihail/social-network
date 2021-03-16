@@ -62,8 +62,8 @@ const profileReducer = (state = initialState, action) => {
     return state;
 };
 export const profileActionCraeters = {
-    addPostActionCreater: () => ({ type: ADD_POST }),
-    updatePostActionCreater: (value) => ({
+    addPost: () => ({ type: ADD_POST }),
+    onPostTextAreaChanged: (value) => ({
         type: UPPDATE_POST_TEXT_AREA,
         value: value
     }),

@@ -35,14 +35,7 @@ let mapStateToProps = (state) => {
         dialogs: state.dialogsData.dialogs
     };
 };
-let mapDispatchToProps = (dispatch) => {
-    return {
-        onDialogLinkClick: (dialogId) => {
-            dispatch(dialogActionCraeters.onDialogLinkCreater(dialogId));
-        },
-        setDialogs: (dialogs) => {
-            dispatch(dialogActionCraeters.onSetDialogsCreater(dialogs));
-        }
-    };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(ListContainer);
+export default connect(mapStateToProps, {
+    onDialogLinkClick: dialogActionCraeters.onDialogLinkCreater,
+    setDialogs: dialogActionCraeters.onSetDialogsCreater
+})(ListContainer);

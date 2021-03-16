@@ -44,17 +44,8 @@ let mapStateToProps = (state) => {
         newMessageTextAreaValue: state.dialogsData.newMessageTextAreaValue
     };
 };
-let mapDispatchToProps = (dispatch) => {
-    return {
-        sendMessage: () => {
-            dispatch(dialogActionCraeters.sendMessageActionCreater());
-        },
-        onMessageTextAreaChanged: (value) => {
-            dispatch(dialogActionCraeters.updateMessageActionCreater(value));
-        },
-        setMessages: (messages) => {
-            dispatch(dialogActionCraeters.setMessagesActionCreater(messages));
-        }
-    };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(ChatContainer);
+export default connect(mapStateToProps, {
+    sendMessage: dialogActionCraeters.sendMessageActionCreater,
+    onMessageTextAreaChanged: dialogActionCraeters.updateMessageActionCreater,
+    setMessages: dialogActionCraeters.setMessagesActionCreater
+})(ChatContainer);

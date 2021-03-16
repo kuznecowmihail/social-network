@@ -1,15 +1,13 @@
 .footer {
   grid-area: f;
-  background-color: burlywood;
+  background-color: rgb(28, 40, 61);
+  border-width: 5px 0 0 0;
+  border-style: solid;
+  border-color: rgb(98, 217, 252);
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
 .item {
-  margin-top: 0.7%;  
-  color: white;
-  text-decoration: none;
-}
-.item.active {
-  color: rgb(197, 38, 176);
+  margin-top: 0.6%;
 }

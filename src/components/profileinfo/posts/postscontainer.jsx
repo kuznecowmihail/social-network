@@ -10,15 +10,8 @@ let mapStateToProps = (state) => {
         avatarSrc: profileData.info.avatarSrc
     };
 };
-let mapDispatchToProps = (dispatch) => {
-    return {
-        addPost: () => {
-            dispatch(profileActionCraeters.addPostActionCreater());
-        },
-        onPostTextAreaChanged: (value) => {
-            dispatch(profileActionCraeters.updatePostActionCreater(value));
-        }
-    };
-};
-const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts);
+const PostsContainer = connect(mapStateToProps, {
+    addPost: profileActionCraeters.addPost,
+    onPostTextAreaChanged: profileActionCraeters.onPostTextAreaChanged
+})(Posts);
 export default PostsContainer;
