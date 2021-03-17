@@ -20,7 +20,7 @@ const UsersContainer = (props) => {
             timeout: 30000,
         };
         let app = axios.create(axiosConfig)
-        app.get(`/users/${pageCount}`)
+        app.get(`/users/page/${pageCount}`)
             .then(response => {
                 if(setFetching) {
                     setFetching(false);

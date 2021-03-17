@@ -1,5 +1,6 @@
 import classes from './user.module.css';
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const User = (props) => {
     const changeFollowed = () => {
@@ -8,7 +9,9 @@ const User = (props) => {
     return (
         <div id={props.id} className={classes.user}>
             <div className={classes.avatar}>
-                <img src={props.img} />
+                <NavLink to={'/profile/' + props.id}>
+                    <img src={props.img} />
+                </NavLink>
             </div>
             <div className={classes.name}>
                 {props.name}

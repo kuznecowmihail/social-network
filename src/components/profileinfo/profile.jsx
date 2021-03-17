@@ -1,8 +1,8 @@
 import InfoContainer from './info/infocontainer';
 import PostsContainer from './posts/postscontainer';
-import classes from './profileinfo.module.css';
+import classes from './profile.module.css';
 
-const ProfileInfo = (props) => {
+const Profile = (props) => {
     return (
         <div className={classes.profileInfo}>
             <InfoContainer />
@@ -10,4 +10,4 @@ const ProfileInfo = (props) => {
         </div>
     );
 }
-export default ProfileInfo;
+export default Profile;
