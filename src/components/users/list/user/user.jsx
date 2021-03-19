@@ -7,19 +7,19 @@ const User = (props) => {
         props.changeFollowed(props.id);
     };
     return (
-        <div id={props.id} className={classes.user}>
-            <div className={classes.avatar}>
-                <NavLink to={'/profile/' + props.id}>
+        <NavLink to={'/profile/' + props.id} >
+            <div id={props.id} className={classes.user}>
+                <div className={classes.avatar}>
                     <img src={props.img} />
-                </NavLink>
+                </div>
+                <div className={classes.name}>
+                    {props.name}
+                </div>
+                <div className={classes.followed}>
+                    <button onClick={changeFollowed}>{props.followed ? 'remove' : 'add'}</button>
+                </div>
             </div>
-            <div className={classes.name}>
-                {props.name}
-            </div>
-            <div className={classes.followed}>
-                <button onClick={changeFollowed}>{props.followed ? 'remove' : 'add'}</button>
-            </div>
-        </div>
+        </NavLink>
     );
 };
 export default User;

@@ -17,10 +17,12 @@ const Chat = (props) => {
                 }
             </div>
             {
-                <InputMessage newMessageTextAreaValue={props.newMessageTextAreaValue}
-                    activeDialogUserId={props.activeDialogUserId}
-                    sendMessage={props.sendMessage}
-                    onMessageTextAreaChanged={props.onMessageTextAreaChanged} />
+                <div className={classes.inputContainer}>
+                    <InputMessage newMessageTextAreaValue={props.newMessageTextAreaValue}
+                        activeDialogUserId={props.activeDialogUserId}
+                        sendMessage={props.sendMessage}
+                        onMessageTextAreaChanged={props.onMessageTextAreaChanged} />
+                </ div>
             }
         </div>);
 }

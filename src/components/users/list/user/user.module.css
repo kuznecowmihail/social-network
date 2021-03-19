@@ -9,6 +9,9 @@
   justify-content: space-between;
   padding: 0.5%;
 }
+.user:hover {
+  background: rgb(98, 217, 252);
+}
 .followed button {
     width: 100px;
 }

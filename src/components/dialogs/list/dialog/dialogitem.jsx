@@ -7,23 +7,20 @@ const DialogItem = (props) => {
         props.onDialogLinkClick(dialogId);
     };
     return (
-        <div id={props.id} className={classes.dialogItem} >
-            <div className={classes.avatar}>
-                <img src={props.img} />
-            </div>
-            <div className={classes.content}>
-                <div className={classes.name}>
-                    <NavLink activeClassName='active-item'
-                        to={"/dialogs/" + props.id}
-                        onClick={onLinkClick}>
-                        {props.name}
-                    </NavLink>
+        <NavLink activeClassName='active-item' to={"/dialogs/" + props.id} onClick={onLinkClick} >
+            <div id={props.id} className={classes.dialogItem} >
+                <div className={classes.avatar}>
+                    <img src={props.img} />
                 </div>
-                <div className={classes.lastMessage}>
-                    {props.lastMessage}
+                <div className={classes.content}>
+                    <div className={classes.name}>
+                    props.name
+                    </div>
+                    <div className={classes.lastMessage}>
+                        {props.lastMessage}
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        </NavLink>);
 }
 export default DialogItem;

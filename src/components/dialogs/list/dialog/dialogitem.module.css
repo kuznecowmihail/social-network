@@ -4,6 +4,9 @@
   border-color: rgb(28, 40, 61);
   margin: 10px;
 }
+.dialogItem:hover {
+  border-color: rgb(98, 217, 252);
+}
 .avatar {
   float: left;
 }

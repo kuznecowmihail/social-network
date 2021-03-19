@@ -1,6 +1,7 @@
 .users {
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
 }
 .search input {
     margin: 10px;

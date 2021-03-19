@@ -1,12 +1,20 @@
-import InfoContainer from './info/infocontainer';
-import PostsContainer from './posts/postscontainer';
+import Info from './info/info';
+import Posts from './posts/posts';
 import classes from './profile.module.css';
 
 const Profile = (props) => {
     return (
         <div className={classes.profileInfo}>
-            <InfoContainer />
-            <PostsContainer />
+            <Info avatarSrc={props.profileData.avatarSrc}
+                name={props.profileData.name}
+                descriprion={props.profileData.descriprion}
+                statusTextAreaValue={props.profileData.statusTextAreaValue}
+                updateStatusTextArea={props.updateStatusTextArea}  />
+            <Posts posts={props.postsData.posts}
+                newPostTextAreaValue={props.postsData.newPostTextAreaValue}
+                avatarSrc={props.profileData.avatarSrc}
+                addPost={props.addPost}
+                onPostTextAreaChanged={props.onPostTextAreaChanged} />
         </div>
     );
 }

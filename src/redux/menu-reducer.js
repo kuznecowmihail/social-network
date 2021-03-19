@@ -13,7 +13,7 @@ let initialState = {
         {
             id: 3,
             name: "Profile Info",
-            to: "/profile"
+            to: "/profile/0"
         }
     ]
 };

@@ -4,7 +4,7 @@ import UsersContainer from './components/users/userscontainer';
 import Header from './components/header/header';
 import Dialogs from './components/dialogs/dialogs';
 import FooterMenu from './components/footermenu/footermenu';
-import Profile from './components/profileinfo/profile';
+import ProfileContainer from './components/profileinfo/profilecontainer';
 import ProfileHeader from './components/profileheader/profileheader';
 
 const App = (props) => {
@@ -14,7 +14,7 @@ const App = (props) => {
       <Header />
       <ProfileHeader name={info.name} avatarSrc={info.avatarSrc} />
       <div className="app-wrapper-content">
-        <Route path="/profile" render={() => <Profile />} />
+        <Route path="/profile/:userid" render={() => <ProfileContainer />} />
         <Route path="/dialogs" render={() => <Dialogs />} />
         <Route path="/users" render={() => <UsersContainer />} />
       </div>

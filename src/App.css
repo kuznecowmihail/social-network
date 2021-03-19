@@ -11,6 +11,9 @@
   background-image: url('./assets/logo512.png');
   overflow-y: scroll;
 }
+.app-wrapper-content::-webkit-scrollbar {
+  width: 0;
+}
 .app-wrapper-content > div {
   margin: 0 5% 0 5%;
   height: 100%;
