@@ -1,4 +1,4 @@
-import axios from 'axios';
+import * as axioshelper from '../../axioshelper/axioshelper';
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 import Users from './users';
@@ -16,24 +16,18 @@ const UsersContainer = (props) => {
         getUsers();
     }, [page]);
     const getUsers = () => {
-        const axiosConfig = {
-            baseURL: 'http://192.168.1.90:3001/api/1.0',
-            timeout: 30000,
-        };
-        let app = axios.create(axiosConfig)
-        app.get(`/users/page/${page}`)
-            .then(response => {
-                setFetching(false);
-                let status = response && response.status;
-                if (status !== 200) {
-                    console.log('request error');
-                    return;
-                }
-                let data = response && response.data && response.data.data;
-                let users = data && data.users;
-                setMoreVisible(data && data.remainder > 0);
-                props.addUsers(users);
-            });
+        let url = `/users/page/${page}`;
+        let app = axioshelper.getApp();
+        app.get(url).then(response => {
+            setFetching(false);
+            if(!axioshelper.isAccess(response)) {
+                return;
+            }
+            let data = response && response.data && response.data.data;
+            let users = data && data.users;
+            setMoreVisible(data && data.remainder > 0);
+            props.addUsers(users);
+        });
     };
     return (
         <Users users={props.users}

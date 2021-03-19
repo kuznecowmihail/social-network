@@ -71,12 +71,10 @@ const profileReducer = (state = initialState, action) => {
             break;
         }
         case SET_USER: {
-            debugger;
             state = setUser(state, action.user);
             break;
         }
         case SET_POSTS: {
-            debugger;
             state = setPosts(state, action.posts);
             break;
         }

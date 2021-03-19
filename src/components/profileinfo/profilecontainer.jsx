@@ -1,9 +1,9 @@
 import {connect} from 'react-redux';
-import axios from 'axios';
 import {useEffect} from 'react';
 import Profile from './profile';
 import {profileActionCraeters} from '../../redux/profile-reducer';
 import {withRouter} from 'react-router-dom';
+import * as axioshelper from '../../axioshelper/axioshelper';
 
 const ProfileContainer = (props) => {
     let userId = props.match.params['userid'] || 1;
@@ -13,41 +13,27 @@ const ProfileContainer = (props) => {
     }, []);
     const getUser = () => {
         let url = `/users/${userId}`;
-        const axiosConfig = {
-            baseURL: 'http://192.168.1.90:3001/api/1.0',
-            timeout: 30000,
-        };
-        let app = axios.create(axiosConfig)
-        app.get(url)
-            .then(response => {
-                let status = response && response.status;
-                if (status !== 200) {
-                    console.log('request error');
-                    return;
-                }
-                let data = response && response.data && response.data.data;
-                let user = data.user;
-                props.setUser(user);
-            });
+        let app = axioshelper.getApp();
+        app.get(url).then(response => {
+            if(!axioshelper.isAccess(response)) {
+                return;
+            }
+            let data = response && response.data && response.data.data;
+            let user = data.user;
+            props.setUser(user);
+        });
     };
     const getPosts = () => {
         let url = `/posts/${userId}`;
-        const axiosConfig = {
-            baseURL: 'http://192.168.1.90:3001/api/1.0',
-            timeout: 30000,
-        };
-        let app = axios.create(axiosConfig)
-        app.get(url)
-            .then(response => {
-                let status = response && response.status;
-                if (status !== 200) {
-                    console.log('request error');
-                    return;
-                }
-                let data = response && response.data && response.data.data;
-                let posts = data.posts;
-                props.setPosts(posts);
-            });
+        let app = axioshelper.getApp();
+        app.get(url).then(response => {
+            if(!axioshelper.isAccess(response)) {
+                return;
+            }
+            let data = response && response.data && response.data.data;
+            let posts = data.posts;
+            props.setPosts(posts);
+        });
     };
     return (<Profile profileData={props.profileData}
         postsData={props.postsData}
