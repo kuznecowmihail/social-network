@@ -2,7 +2,7 @@ import List from './list';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import { useEffect } from 'react';
-import {dialogActionCraeters} from '../../../redux/dialogs-reducer';
+import {dialogActionCreaters} from '../../../redux/dialogs-reducer';
 
 const ListContainer = (props) => {
     useEffect(() => {
@@ -23,7 +23,7 @@ const ListContainer = (props) => {
                     console.log('request error');
                     return;
                 }
-                let data = response && response.data;
+                let data = response && response.data && response.data.data;
                 let dialogs = data && data.dialogs;
                 props.setDialogs(dialogs);
             });
@@ -36,6 +36,6 @@ let mapStateToProps = (state) => {
     };
 };
 export default connect(mapStateToProps, {
-    onDialogLinkClick: dialogActionCraeters.onDialogLinkCreater,
-    setDialogs: dialogActionCraeters.onSetDialogsCreater
+    onDialogLinkClick: dialogActionCreaters.onDialogLinkClick,
+    setDialogs: dialogActionCreaters.setDialogs
 })(ListContainer);

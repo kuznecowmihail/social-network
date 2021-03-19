@@ -9,9 +9,9 @@ const Users = (props) => {
         props.updateSeatchTextArea(value);
     };
     const onMoreClick = () => {
-        props.setPage(props.page + 1);
-        props.setMoreVisible(false);
         props.setFetching(true);
+        props.setMoreVisible(false);
+        props.setPage(props.page + 1);
     };
     return (
         <div className={classes.users}>

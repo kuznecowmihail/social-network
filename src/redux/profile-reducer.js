@@ -3,7 +3,8 @@ import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from "react-dom";
 const ADD_POST = 'ADD-POST';
 const UPPDATE_POST_TEXT_AREA = 'UPPDATE-POST-TEXT-AREA';
 const UPPDATE_STATUS_TEXT_AREA = 'UPPDATE-STATUS-TEXT-AREA';
-const SET_INFO = 'SET-INFO';
+const SET_USER = 'SET-USER';
+const SET_POSTS = 'SET-POSTS';
 
 let initialState = {
     info: {},
@@ -38,15 +39,20 @@ const updateStatusTextArea = (state, value) => {
     };
     return stateCopy;
 };
-const setInfo = (state, data) => {
-    debugger;
-    if(state.info.id === data.info.id) { 
+const setUser = (state, user) => {
+    if(state.info.id === user.id) { 
         return state;
     }
     let stateCopy = {
         ...state,
-        info: data.info,
-        posts: data.posts
+        info: user
+    };
+    return stateCopy;
+};
+const setPosts = (state, posts) => {
+    let stateCopy = {
+        ...state,
+        posts: posts
     };
     return stateCopy;
 };
@@ -64,8 +70,14 @@ const profileReducer = (state = initialState, action) => {
             state = updateStatusTextArea(state, action.value);
             break;
         }
-        case SET_INFO: {
-            state = setInfo(state, action.data);
+        case SET_USER: {
+            debugger;
+            state = setUser(state, action.user);
+            break;
+        }
+        case SET_POSTS: {
+            debugger;
+            state = setPosts(state, action.posts);
             break;
         }
     }
@@ -81,9 +93,13 @@ export const profileActionCraeters = {
         type: UPPDATE_STATUS_TEXT_AREA,
         value: value
     }),
-    setInfo: (data) => ({
-        type: SET_INFO,
-        data: data
+    setUser: (user) => ({
+        type: SET_USER,
+        user: user
+    }),
+    setPosts: (posts) => ({
+        type: SET_POSTS,
+        posts: posts
     })
 }
 export default profileReducer

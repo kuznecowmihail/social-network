@@ -6,7 +6,6 @@ const SET_MESSAGES = 'SET-MESSAGES';
 
 let initialState = {
     dialogs: [],
-    activeDialogId: null,
     messages: [],
     newMessageTextAreaValue: ''
 }
@@ -74,23 +73,23 @@ const dialogsReducer = (state = initialState, action) => {
     }
     return state;
 };
-export const dialogActionCraeters = {
-    sendMessageActionCreater: (userId) => ({
+export const dialogActionCreaters = {
+    sendMessage: (userId) => ({
         type: ADD_MESSAGE
     }),
-    updateMessageActionCreater: (value) => ({
+    onMessageTextAreaChanged: (value) => ({
         type: UPPDATE_MESSAGE_TEXT_AREA,
         value: value
     }),
-    onDialogLinkCreater: (dialogId) => ({
+    onDialogLinkClick: (dialogId) => ({
         type: ON_DIALOG_LINK_CLICK,
         dialogId: dialogId
     }),
-    onSetDialogsCreater: (dialogs) => ({
+    setDialogs: (dialogs) => ({
         type: SET_DIALOGS,
         dialogs: dialogs
     }),
-    setMessagesActionCreater: (messages) => ({
+    setMessages: (messages) => ({
         type: SET_MESSAGES,
         messages: messages
     })

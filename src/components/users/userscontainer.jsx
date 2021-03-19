@@ -29,7 +29,7 @@ const UsersContainer = (props) => {
                     console.log('request error');
                     return;
                 }
-                let data = response && response.data;
+                let data = response && response.data && response.data.data;
                 let users = data && data.users;
                 setMoreVisible(data && data.remainder > 0);
                 props.addUsers(users);

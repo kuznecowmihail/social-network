@@ -16,7 +16,8 @@ const App = (props) => {
       <div className="app-wrapper-content">
         <Route exact={true} path="/profile" render={() => <ProfileContainer />} />
         <Route path="/profile/:userid" render={() => <ProfileContainer />} />
-        <Route path="/dialogs" render={() => <Dialogs />} />
+        <Route exact={true} path="/dialogs" render={() => <Dialogs />} />
+        <Route path="/dialogs/:dialogid" render={() => <Dialogs />} />
         <Route path="/users" render={() => <UsersContainer />} />
       </div>
       <FooterMenu state={props.store.getState().menuData} />
