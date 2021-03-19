@@ -5,26 +5,25 @@ import Users from './users';
 import { usersActionCraeters } from '../../redux/users-reducer';
 
 const UsersContainer = (props) => {
-    const [isInit, setInit] = useState(false);
     const [page, setPage] = useState(0);
+    const [isFetching, setFetching] = useState(false);
+    const [moreVisible, setMoreVisible] = useState(true);
     useEffect(() => {
-        if (props.users.length === 0 && !isInit) {
-            setInit(true);
-            getUsers();
+        if(page === 0) {
+            props.setUsers([]);
+            props.updateSeatchTextArea('');
         }
-    });
-    const getUsers = (pageCount, setFetching, setMoreVisible) => {
-        pageCount = pageCount || 0;
+        getUsers();
+    }, [page]);
+    const getUsers = () => {
         const axiosConfig = {
             baseURL: 'http://192.168.1.90:3001/api/1.0',
             timeout: 30000,
         };
         let app = axios.create(axiosConfig)
-        app.get(`/users/page/${pageCount}`)
+        app.get(`/users/page/${page}`)
             .then(response => {
-                if(setFetching) {
-                    setFetching(false);
-                }
+                setFetching(false);
                 let status = response && response.status;
                 if (status !== 200) {
                     console.log('request error');
@@ -32,18 +31,19 @@ const UsersContainer = (props) => {
                 }
                 let data = response && response.data;
                 let users = data && data.users;
-                setPage(pageCount + 1);
-                if(setMoreVisible) {
-                    setMoreVisible(data && data.remainder > 0);
-                }
-                props.setUsers(users);
+                setMoreVisible(data && data.remainder > 0);
+                props.addUsers(users);
             });
     };
     return (
         <Users users={props.users}
             newSearchTextAreaValue={props.newSearchTextAreaValue}
+            isFetching={isFetching}
+            moreVisible={moreVisible}
             page={page}
-            getUsers={getUsers}
+            setPage={setPage}
+            setMoreVisible={setMoreVisible}
+            setFetching={setFetching}
             updateSeatchTextArea={props.updateSeatchTextArea}
             changeFollowed={props.changeFollowed} />);
 };
@@ -56,13 +56,16 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
     return {
         updateSeatchTextArea: (value) => {
-            dispatch(usersActionCraeters.updateSearchActionCreater(value));
+            dispatch(usersActionCraeters.updateSeatchTextArea(value));
         },
         changeFollowed: (userId) => {
-            dispatch(usersActionCraeters.changeFollowedCreater(userId));
+            dispatch(usersActionCraeters.changeFollowed(userId));
+        },
+        addUsers: (users) => {
+            dispatch(usersActionCraeters.addUsers(users));
         },
         setUsers: (users) => {
-            dispatch(usersActionCraeters.setUsersCreater(users));
+            dispatch(usersActionCraeters.setUsers(users));
         }
     }
 };

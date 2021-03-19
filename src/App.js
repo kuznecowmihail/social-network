@@ -14,6 +14,7 @@ const App = (props) => {
       <Header />
       <ProfileHeader name={info.name} avatarSrc={info.avatarSrc} />
       <div className="app-wrapper-content">
+        <Route exact={true} path="/profile" render={() => <ProfileContainer />} />
         <Route path="/profile/:userid" render={() => <ProfileContainer />} />
         <Route path="/dialogs" render={() => <Dialogs />} />
         <Route path="/users" render={() => <UsersContainer />} />

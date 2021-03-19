@@ -6,11 +6,11 @@ import {profileActionCraeters} from '../../redux/profile-reducer';
 import {withRouter} from 'react-router-dom';
 
 const ProfileContainer = (props) => {
-    let userId = props.match.params['userid'];
+    let userId = props.match.params['userid'] || 1;
     let url = `/users/${userId}`;
     useEffect(() => {
-        getInfo()
-    });
+        getInfo();
+    }, []);
     const getInfo = () => {
         const axiosConfig = {
             baseURL: 'http://192.168.1.90:3001/api/1.0',
@@ -24,7 +24,6 @@ const ProfileContainer = (props) => {
                     console.log('request error');
                     return;
                 }
-                debugger;
                 let data = response && response.data;
                 props.setInfo(data);
             });

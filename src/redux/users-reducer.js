@@ -1,5 +1,6 @@
 const UPPDATE_SEARCH_TEXT_AREA = 'UPPDATE-SEARCH-TEXT-AREA';
 const CHANGE_FOLLOWED = 'CHANGE-FOLLOWED';
+const ADD_USERS = 'ADD-USERS';
 const SET_USERS = 'SET-USERS';
 
 let initialState = {
@@ -28,24 +29,32 @@ const usersReducer = (state = initialState, action) => {
             state = changeFollowed(state, action.userId);
             break;
         }
-        case SET_USERS: {
+        case ADD_USERS: {
             state.users.push(...action.users);
             state = {...state, users: [...state.users]};
+            break;
+        }
+        case SET_USERS: {
+            state = {...state, users: action.users};
             break;
         }
     }
     return state;
 };
 export const usersActionCraeters = {
-    updateSearchActionCreater: (value) => ({
+    updateSeatchTextArea: (value) => ({
         type: UPPDATE_SEARCH_TEXT_AREA,
         value: value
     }),
-    changeFollowedCreater: (userId) => ({
+    changeFollowed: (userId) => ({
         type: CHANGE_FOLLOWED,
         userId: userId
     }),
-    setUsersCreater: (users) => ({
+    addUsers: (users) => ({
+        type: ADD_USERS,
+        users: users
+    }),
+    setUsers: (users) => ({
         type: SET_USERS,
         users: users
     })
