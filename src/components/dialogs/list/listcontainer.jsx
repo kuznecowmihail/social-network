@@ -1,12 +1,13 @@
 import List from './list';
-import {connect} from 'react-redux';
-import * as axioshelper from '../../../axioshelper/axioshelper';
 import { useEffect } from 'react';
-import {dialogActionCreaters} from '../../../redux/dialogs-reducer';
+import { connect } from 'react-redux';
+import { ListContext } from '../../../context';
+import * as axioshelper from '../../../axioshelper/axioshelper';
+import { dialogActionCreaters } from '../../../redux/dialogs-reducer';
 
 const ListContainer = (props) => {
     useEffect(() => {
-        if(props.dialogs.length === 0) {
+        if (props.dialogs.length === 0) {
             getDialogs();
         }
     });
@@ -14,7 +15,7 @@ const ListContainer = (props) => {
         let url = '/dialogs';
         let app = axioshelper.getApp();
         app.get(url).then(response => {
-            if(!axioshelper.isAccess(response)) {
+            if (!axioshelper.isAccess(response)) {
                 return;
             }
             let data = response && response.data && response.data.data;
@@ -22,7 +23,11 @@ const ListContainer = (props) => {
             props.setDialogs(dialogs);
         });
     };
-    return <List dialogs={props.dialogs} onDialogLinkClick={props.onDialogLinkClick} />;
+    return (
+        <ListContext.Provider value={props}>
+            <List />
+        </ListContext.Provider>
+    );
 }
 let mapStateToProps = (state) => {
     return {

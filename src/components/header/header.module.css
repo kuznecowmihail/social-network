@@ -4,7 +4,12 @@
     border-width: 0 0 5px 0;
     border-style: solid;
     border-bottom-color: rgb(98, 217, 252);
+    display: flex;
+    flex-direction: row;
   }
   .header img {
     width: 50px;
+  }
+  .loginBlock {
+    
   }

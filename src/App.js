@@ -1,17 +1,17 @@
 import './App.css';
 import {Route} from 'react-router-dom';
 import UsersContainer from './components/users/userscontainer';
-import Header from './components/header/header';
 import Dialogs from './components/dialogs/dialogs';
 import FooterMenu from './components/footermenu/footermenu';
 import ProfileContainer from './components/profileinfo/profilecontainer';
 import ProfileHeader from './components/profileheader/profileheader';
+import HeaderContainer from './components/header/headercontainer';
 
 const App = (props) => {
   let info = props.store.getState().profileData.info;
   return (
     <div className='app-wrapper'>
-      <Header />
+      <HeaderContainer />
       <ProfileHeader name={info.name} avatarSrc={info.avatarSrc} />
       <div className="app-wrapper-content">
         <Route exact={true} path="/profile" render={() => <ProfileContainer />} />

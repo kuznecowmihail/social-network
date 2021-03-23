@@ -1,9 +1,10 @@
-import {connect} from 'react-redux';
-import {useEffect} from 'react';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Profile from './profile';
-import {profileActionCraeters} from '../../redux/profile-reducer';
-import {withRouter} from 'react-router-dom';
+import { ProfileContext } from '../../context';
 import * as axioshelper from '../../axioshelper/axioshelper';
+import { profileActionCraeters } from '../../redux/profile-reducer';
 
 const ProfileContainer = (props) => {
     let userId = props.match.params['userid'] || 1;
@@ -15,7 +16,7 @@ const ProfileContainer = (props) => {
         let url = `/users/${userId}`;
         let app = axioshelper.getApp();
         app.get(url).then(response => {
-            if(!axioshelper.isAccess(response)) {
+            if (!axioshelper.isAccess(response)) {
                 return;
             }
             let data = response && response.data && response.data.data;
@@ -27,7 +28,7 @@ const ProfileContainer = (props) => {
         let url = `/posts/${userId}`;
         let app = axioshelper.getApp();
         app.get(url).then(response => {
-            if(!axioshelper.isAccess(response)) {
+            if (!axioshelper.isAccess(response)) {
                 return;
             }
             let data = response && response.data && response.data.data;
@@ -35,11 +36,10 @@ const ProfileContainer = (props) => {
             props.setPosts(posts);
         });
     };
-    return (<Profile profileData={props.profileData}
-        postsData={props.postsData}
-        updateStatusTextArea={props.updateStatusTextArea}
-        addPost={props.addPost}
-        onPostTextAreaChanged={props.onPostTextAreaChanged} />);
+    return (
+        <ProfileContext.Provider value={props}>
+            <Profile />
+        </ProfileContext.Provider>);
 }
 const mapStateToProps = (state) => {
     let profileData = state.profileData;

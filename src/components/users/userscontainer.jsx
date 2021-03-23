@@ -1,7 +1,8 @@
-import * as axioshelper from '../../axioshelper/axioshelper';
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 import Users from './users';
+import { UsersContext } from '../../context';
+import * as axioshelper from '../../axioshelper/axioshelper';
 import { usersActionCraeters } from '../../redux/users-reducer';
 
 const UsersContainer = (props) => {
@@ -9,7 +10,7 @@ const UsersContainer = (props) => {
     const [isFetching, setFetching] = useState(false);
     const [moreVisible, setMoreVisible] = useState(true);
     useEffect(() => {
-        if(page === 0) {
+        if (page === 0) {
             props.setUsers([]);
             props.updateSeatchTextArea('');
         }
@@ -20,7 +21,7 @@ const UsersContainer = (props) => {
         let app = axioshelper.getApp();
         app.get(url).then(response => {
             setFetching(false);
-            if(!axioshelper.isAccess(response)) {
+            if (!axioshelper.isAccess(response)) {
                 return;
             }
             let data = response && response.data && response.data.data;
@@ -30,16 +31,10 @@ const UsersContainer = (props) => {
         });
     };
     return (
-        <Users users={props.users}
-            newSearchTextAreaValue={props.newSearchTextAreaValue}
-            isFetching={isFetching}
-            moreVisible={moreVisible}
-            page={page}
-            setPage={setPage}
-            setMoreVisible={setMoreVisible}
-            setFetching={setFetching}
-            updateSeatchTextArea={props.updateSeatchTextArea}
-            changeFollowed={props.changeFollowed} />);
+        <UsersContext.Provider value={{ ...props, isFetching, moreVisible, page, setPage, setMoreVisible, setFetching }}>
+            <Users />
+        </UsersContext.Provider>
+    );
 };
 let mapStateToProps = (state) => {
     return {

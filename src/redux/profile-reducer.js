@@ -1,5 +1,3 @@
-import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from "react-dom";
-
 const ADD_POST = 'ADD-POST';
 const UPPDATE_POST_TEXT_AREA = 'UPPDATE-POST-TEXT-AREA';
 const UPPDATE_STATUS_TEXT_AREA = 'UPPDATE-STATUS-TEXT-AREA';
@@ -20,7 +18,7 @@ const addPost = (state) => {
     }
     let stateCopy = {
         ...state,
-        newPostTextAreaValue: '',
+        newPostTextAreaValue: null,
         posts: [...state.posts, newPost]
     };
     return stateCopy;

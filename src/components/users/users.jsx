@@ -1,34 +1,33 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 import List from './list/list';
 import Preloader from '.././common/preloader/preloader';
 import classes from './users.module.css';
+import { UsersContext } from './../../context';
 
-const Users = (props) => {
+const Users = () => {
+    const usersContext = useContext(UsersContext);
     const updateSeatchTextArea = (e) => {
         let value = e.target.value;
-        props.updateSeatchTextArea(value);
+        usersContext.updateSeatchTextArea(value);
     };
     const onMoreClick = () => {
-        props.setFetching(true);
-        props.setMoreVisible(false);
-        props.setPage(props.page + 1);
+        usersContext.setFetching(true);
+        usersContext.setMoreVisible(false);
+        usersContext.setPage(usersContext.page + 1);
     };
     return (
         <div className={classes.users}>
             <div className={classes.search}>
-                <input type='text' onChange={updateSeatchTextArea}
-                    value={props.newSearchTextAreaValue} />
+                <input type='text' onChange={updateSeatchTextArea} value={usersContext.newSearchTextAreaValue} />
             </div>
-            <List changeFollowed={props.changeFollowed}
-                users={props.users.filter(item =>
-                    item.name.toLowerCase().includes(props.newSearchTextAreaValue.toLowerCase()))} />
-            <Preloader isFetching={props.isFetching} />
+            <List changeFollowed={usersContext.changeFollowed}
+                users={usersContext.users.filter(item =>
+                    item.name.toLowerCase().includes(usersContext.newSearchTextAreaValue.toLowerCase()))} />
+            <Preloader isFetching={usersContext.isFetching} />
             {
-                props.moreVisible && 
+                usersContext.moreVisible && 
                 <div className={classes.more}>
-                    <button onClick={onMoreClick}>
-                        More
-                    </button>
+                    <button onClick={onMoreClick}>More</button>
                 </div>
             }
         </div>

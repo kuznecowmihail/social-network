@@ -1,23 +1,24 @@
-import * as axioshelper from '../../../axioshelper/axioshelper'
-import {useEffect} from 'react';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { React, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import Chat from './chat';
-import NullChat from './nullchat/nullchat'
-import {dialogActionCreaters} from './../../../redux/dialogs-reducer';
+import NullChat from './nullchat/nullchat';
+import { ChatContext } from '../../../context';
+import * as axioshelper from '../../../axioshelper/axioshelper';
+import { dialogActionCreaters } from './../../../redux/dialogs-reducer';
 
 const ChatContainer = (props) => {
-    let dialogId = props.match.params['dialogid'];
+    let activeDialogUserId = props.match.params['dialogid'];
     useEffect(() => {
-        if (dialogId) {
+        if (activeDialogUserId) {
             getMessages();
         }
-    }, [dialogId]);
+    }, [activeDialogUserId]);
     const getMessages = () => {
-        let url = `/messages/${dialogId}`;
+        let url = `/messages/${activeDialogUserId}`;
         let app = axioshelper.getApp();
         app.get(url).then(response => {
-            if(!axioshelper.isAccess(response)) {
+            if (!axioshelper.isAccess(response)) {
                 return;
             }
             let data = response && response.data && response.data.data;
@@ -25,13 +26,12 @@ const ChatContainer = (props) => {
             props.setMessages(messages);
         });
     };
-    return props.messages.length 
-        ? <Chat messages={props.messages}
-            newMessageTextAreaValue={props.newMessageTextAreaValue}
-            activeDialogUserId={dialogId}
-            sendMessage={props.sendMessage}
-            onMessageTextAreaChanged={props.onMessageTextAreaChanged} />
-        : <NullChat />;
+    return (props.messages.length
+        ? <ChatContext.Provider value={{...props, activeDialogUserId}}>
+            <Chat />
+        </ChatContext.Provider>
+        : <NullChat />
+    );
 };
 let mapStateToProps = (state) => {
     return {

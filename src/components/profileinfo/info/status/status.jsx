@@ -4,7 +4,6 @@ import classes from './status.module.css';
 const Status = (props) => {
     const [isEdit, changeEdit] = useState(false);
     const updateStatusTextArea = (e) => {
-        debugger;
         props.updateStatusTextArea(e.target.value);
     };
     return (

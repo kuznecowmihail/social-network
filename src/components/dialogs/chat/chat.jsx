@@ -1,13 +1,16 @@
+import React, {useContext} from 'react';
 import classes from './chat.module.css';
 import Message from './message/message';
+import { ChatContext } from './../../../context';
 import InputMessage from './inputmessage/inputmessage';
 
 const Chat = (props) => {
+    const chatContext = useContext(ChatContext);
     return (
         <div className={classes.messanger}>
             <div className={classes.messages}>
                 {
-                    props.messages.map((data) => {
+                    chatContext.messages.map((data) => {
                         return (
                             <Message key={data.id}
                                 message={data.message}
@@ -18,10 +21,10 @@ const Chat = (props) => {
             </div>
             {
                 <div className={classes.inputContainer}>
-                    <InputMessage newMessageTextAreaValue={props.newMessageTextAreaValue}
-                        activeDialogUserId={props.activeDialogUserId}
-                        sendMessage={props.sendMessage}
-                        onMessageTextAreaChanged={props.onMessageTextAreaChanged} />
+                    <InputMessage newMessageTextAreaValue={chatContext.newMessageTextAreaValue}
+                        activeDialogUserId={chatContext.activeDialogUserId}
+                        sendMessage={chatContext.sendMessage}
+                        onMessageTextAreaChanged={chatContext.onMessageTextAreaChanged} />
                 </ div>
             }
         </div>);

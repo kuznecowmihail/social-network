@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://192.168.1.90:3001/api/1.0';
+const baseURL = 'http://localhost:3001/api/1.0';
 const axiosConfig = {
     baseURL: baseURL,
     timeout: 30000,
