@@ -1,10 +1,19 @@
 import classes from './user.module.css';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import * as axioshelper from '../../../../axioshelper/axioshelper';
 
 const User = (props) => {
     const changeFollowed = () => {
-        props.changeFollowed(props.id);
+        let url = `/follow/${props.id}`;
+        let app = axioshelper.getApp();
+        app.put(url).then(response => {
+            if (!axioshelper.isAccess(response)) {
+                return;
+            }
+            let data = response && response.data && response.data.data;
+            props.changeFollowed({ userId: props.id, followed: data.followed });
+        });
     };
     return (
         <NavLink to={'/profile/' + props.id} >

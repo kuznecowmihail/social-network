@@ -42,20 +42,9 @@ let mapStateToProps = (state) => {
         users: state.usersData.users
     };
 };
-let mapDispatchToProps = (dispatch) => {
-    return {
-        updateSeatchTextArea: (value) => {
-            dispatch(usersActionCraeters.updateSeatchTextArea(value));
-        },
-        changeFollowed: (userId) => {
-            dispatch(usersActionCraeters.changeFollowed(userId));
-        },
-        addUsers: (users) => {
-            dispatch(usersActionCraeters.addUsers(users));
-        },
-        setUsers: (users) => {
-            dispatch(usersActionCraeters.setUsers(users));
-        }
-    }
-};
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, {
+    updateSeatchTextArea: usersActionCraeters.updateSeatchTextArea,
+    changeFollowed: usersActionCraeters.changeFollowed,
+    addUsers: usersActionCraeters.addUsers,
+    setUsers: usersActionCraeters.setUsers
+})(UsersContainer);

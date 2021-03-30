@@ -4,7 +4,7 @@ import { authActionCreaters } from '../../redux/auth-reducer';
 import Header from './header';
 import * as axioshelper from '../../axioshelper/axioshelper';
 
-const HeaderContainer = ({login , password,setAuthUserData}) => {
+const HeaderContainer = ({login , password, setAuthUserData}) => {
     useEffect(() => {
         setUserData();
     }, []);

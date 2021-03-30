@@ -7,8 +7,8 @@ import ProfileContainer from './components/profileinfo/profilecontainer';
 import ProfileHeader from './components/profileheader/profileheader';
 import HeaderContainer from './components/header/headercontainer';
 
-const App = (props) => {
-  let info = props.store.getState().profileData.info;
+const App = ({store}) => {
+  let info = store.getState().profileData.info;
   return (
     <div className='app-wrapper'>
       <HeaderContainer />
@@ -20,7 +20,7 @@ const App = (props) => {
         <Route path="/dialogs/:dialogid" render={() => <Dialogs />} />
         <Route path="/users" render={() => <UsersContainer />} />
       </div>
-      <FooterMenu state={props.store.getState().menuData} />
+      <FooterMenu state={store.getState().menuData} />
     </div>
   );
 }

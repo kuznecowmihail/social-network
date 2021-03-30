@@ -7,12 +7,12 @@ let initialState = {
     users: [],
     newSearchTextAreaValue: ''
 };
-const changeFollowed = (state, userId) => {
+const changeFollowed = (state, {userId, followed}) => {
     let stateCopy = {
         ...state,
         users: state.users.map(user => {
             if(user.id === userId) {
-                return {...user, followed: !user.followed}
+                return {...user, followed: followed}
             }
             return user;
         })
@@ -26,7 +26,7 @@ const usersReducer = (state = initialState, action) => {
             break;
         }
         case CHANGE_FOLLOWED: {
-            state = changeFollowed(state, action.userId);
+            state = changeFollowed(state, {userId: action.userId, followed: action.followed});
             break;
         }
         case ADD_USERS: {
@@ -46,9 +46,10 @@ export const usersActionCraeters = {
         type: UPPDATE_SEARCH_TEXT_AREA,
         value: value
     }),
-    changeFollowed: (userId) => ({
+    changeFollowed: ({userId, followed}) => ({
         type: CHANGE_FOLLOWED,
-        userId: userId
+        userId: userId,
+        followed: followed
     }),
     addUsers: (users) => ({
         type: ADD_USERS,
